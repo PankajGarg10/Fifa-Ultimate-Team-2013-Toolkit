@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using UltimateTeam.Toolkit.Service;
 
@@ -21,6 +22,9 @@ namespace UltimateTeam.Toolkit.Request
         {
             var handler = new HttpClientHandler { CookieContainer = CookieContainer };
             Client = new HttpClient(handler);
+            Client.DefaultRequestHeaders.ExpectContinue = false;
+            Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17");
+            Client.DefaultRequestHeaders.Referrer = new Uri("http://www.ea.com/uk/football/login?redirectUrl=http://www.ea.com/uk/football/fifa-ultimate-team");
         }
     }
 }

@@ -34,6 +34,7 @@ namespace UltimateTeam.Toolkit.Request
             var authResponse = await AuthenticationRequestAsync(loginResponse, persona);
             /*var validateResponse = */
             await ValidateRequestAsync(authResponse, securityAnswer);
+
         }
 
         private async Task<ValidateResponse> ValidateRequestAsync(AuthenticationResponse authResponse, string securityAnswer)
@@ -103,12 +104,13 @@ namespace UltimateTeam.Toolkit.Request
 
         private async Task<LoginResponse> LoginRequestAsync(string username, string password)
         {
-            var loginUrl = new Uri("https://www.ea.com/uk/football/services/authenticate/login");
+            var loginUrl = new Uri("https://www.ea.com/intl/football/services/authenticate/login");
 
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 { "email", username },
-                { "password", password }
+                { "password", password },
+                { "stay-signed", "ON"}
             });
 
             var response = await Client.PostAsync(loginUrl, content);
