@@ -10,10 +10,9 @@ namespace UltimateTeam.Toolkit.Request
     {
         public async Task<AuctionResponse> GetTradeStatuses(IEnumerable<long> tradeIds)
         {
-            var uriString = string.Format("https://utas.s2.fut.ea.com/ut/game/fifa13/trade?tradeIds={0}", string.Join("%2C", tradeIds));
+            var uriString = string.Format(Resources.TradeStatus, string.Join("%2C", tradeIds));
             var uri = new Uri(uriString);
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, uri) { Content = new StringContent(" ") };
-
             requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessonId);
             requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", "GET");
             

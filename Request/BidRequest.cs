@@ -10,11 +10,10 @@ namespace UltimateTeam.Toolkit.Request
     {
         public async Task<AuctionResponse> PlaceBid(AuctionInfo auctionInfo, uint bidAmount)
         {
-            var uriString = string.Format("https://utas.s2.fut.ea.com/ut/game/fifa13/trade/{0}/bid", auctionInfo.TradeId);
+            var uriString = string.Format(Resources.Bid, auctionInfo.TradeId);
             var uri = new Uri(uriString);
             var content = new StringContent(string.Format("{{\"bid\":{0}}}", bidAmount), Encoding.UTF8, "application/json");
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, uri) { Content = content };
-
             requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessonId);
             requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", "PUT");
 

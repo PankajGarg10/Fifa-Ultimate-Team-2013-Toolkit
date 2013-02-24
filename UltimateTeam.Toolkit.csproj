@@ -59,6 +59,7 @@
     <Compile Include="Request\BidRequest.cs" />
     <Compile Include="Request\ItemRequest.cs" />
     <Compile Include="Request\PlayerImageRequest.cs" />
+    <Compile Include="Request\Resources.cs" />
     <Compile Include="Request\TradeRequest.cs" />
     <Compile Include="Service\IJsonDeserializer.cs" />
     <Compile Include="Extension\DateTimeExtensions.cs" />

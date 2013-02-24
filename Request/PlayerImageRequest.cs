@@ -11,6 +11,7 @@ namespace UltimateTeam.Toolkit.Request
             var baseId = resourceId.CalculateBaseId();
             var uriString = string.Format("http://cdn.content.easports.com/fifa/fltOnlineAssets/2013/fut/items/images/players/web/{0}.png", baseId);
             var uri = new Uri(uriString);
+
             var imageBytes = await Client.GetByteArrayAsync(uri);
 
             return imageBytes;

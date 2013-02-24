@@ -16,12 +16,10 @@ namespace UltimateTeam.Toolkit.Request
             if (parameters.Page < 1) throw new ArgumentException("Page must be > 0");
 
             var searchUri = BuildUri(parameters);
-
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, searchUri)
             {
                 Content = new StringContent(" ")
             };
-
             requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessonId);
             requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", "GET");
 
@@ -35,9 +33,7 @@ namespace UltimateTeam.Toolkit.Request
 
         private static Uri BuildUri(SearchParameters parameters)
         {
-            var uriString = string.Format("https://utas.s2.fut.ea.com/ut/game/fifa13/auctionhouse?start={0}&num={1}",
-                      (parameters.Page - 1) * PageSize, PageSize + 1);
-
+            var uriString = string.Format(Resources.Search, (parameters.Page - 1) * PageSize, PageSize + 1);
             parameters.BuildUriString(ref uriString);
 
             return new Uri(uriString);

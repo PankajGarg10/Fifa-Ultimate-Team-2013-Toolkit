@@ -18,7 +18,11 @@ namespace UltimateTeam.Toolkit.Request
         public IHasher Hasher
         {
             get { return _hasher ?? new Hasher(); }
-            set { _hasher = value; }
+            set
+            {
+                if (value == null) throw new ArgumentNullException("value");
+                _hasher = value;
+            }
         }
 
         public async Task LoginAsync(string username, string password, string securityAnswer)
@@ -34,17 +38,14 @@ namespace UltimateTeam.Toolkit.Request
             var authResponse = await AuthenticationRequestAsync(loginResponse, persona);
             /*var validateResponse = */
             await ValidateRequestAsync(authResponse, securityAnswer);
-
         }
 
         private async Task<ValidateResponse> ValidateRequestAsync(AuthenticationResponse authResponse, string securityAnswer)
         {
-            var questionUrl = new Uri("http://www.ea.com/p/fut/a/card-ps3/l/en_GB/s/p/ut/game/fifa13/phishing/validate");
-
+            var questionUrl = new Uri(Resources.Validate);
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, questionUrl);
             requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", authResponse.SessionId);
             requestMessage.Headers.TryAddWithoutValidation("X-Ut-Embed-Error", "true");
-            requestMessage.Headers.ExpectContinue = false;
             requestMessage.Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 { "answer", Hasher.Hash(securityAnswer) }
@@ -60,14 +61,13 @@ namespace UltimateTeam.Toolkit.Request
 
         private async Task<AuthenticationResponse> AuthenticationRequestAsync(LoginResponse loginResponse, Persona persona)
         {
-            var authUrl = new Uri("http://www.ea.com/p/fut/a/card-ps3/l/en_GB/s/p/ut/auth");
+            var authUrl = new Uri(Resources.Auth);
             var authJson = string.Format(@"{{ ""isReadOnly"": false, ""sku"": ""393A0001"", ""clientVersion"": 3, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""idm"", ""priorityLevel"":4, ""identification"": {{ ""EASW-Token"": """" }} }}",
                     loginResponse.Player.NucleusId,
                     persona.PersonaId,
                     persona.PersonaName,
                     persona.UserClubList.OrderByDescending(club => club.LastAccessTime).First().Platform
                     );
-            Client.DefaultRequestHeaders.ExpectContinue = false;
             var response = await Client.PostAsync(authUrl, new StringContent(authJson, Encoding.UTF8, "application/json"));
             response.EnsureSuccessStatusCode();
 
@@ -79,8 +79,8 @@ namespace UltimateTeam.Toolkit.Request
 
         private async Task<Persona> AccountInfoRequestAsync()
         {
-            var accountUrl = new Uri(string.Format("http://www.ea.com/p/fut/a/card-pc/l/en_GB/s/p/ut/game/fifa13/user/accountinfo?timestamp={0}",
-                                  DateTime.UtcNow.ToUnixTimestamp()));
+            var accountUrl = new Uri(string.Format(Resources.AccountInfo, DateTime.UtcNow.ToUnixTimestamp()));
+            
             var response = await Client.GetAsync(accountUrl);
             response.EnsureSuccessStatusCode();
 
@@ -92,8 +92,8 @@ namespace UltimateTeam.Toolkit.Request
 
         //private async Task<Shards> ShardsRequestAsync()
         //{
-        //    var shardsUrl = new Uri(string.Format("http://www.ea.com/p/fut/a/card/l/en_GB/s/p/ut/shards?timestamp={0}",
-        //                                          DateTime.UtcNow.ToUnixTimestamp()));
+        //    var shardsUrl = new Uri(string.Format(Resources.Shards, DateTime.UtcNow.ToUnixTimestamp()));
+       
         //    var response = await Client.GetAsync(shardsUrl);
         //    response.EnsureSuccessStatusCode();
 
@@ -104,8 +104,7 @@ namespace UltimateTeam.Toolkit.Request
 
         private async Task<LoginResponse> LoginRequestAsync(string username, string password)
         {
-            var loginUrl = new Uri("https://www.ea.com/intl/football/services/authenticate/login");
-
+            var loginUrl = new Uri(Resources.Login);
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 { "email", username },
