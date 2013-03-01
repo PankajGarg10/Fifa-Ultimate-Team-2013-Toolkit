@@ -21,5 +21,7 @@
         public const string Bid = "https://utas.s2.fut.ea.com/ut/game/fifa13/trade/{0}/bid";
         
         public const string Home = "http://www.ea.com/uk/football/login?redirectUrl=http://www.ea.com/uk/football/fifa-ultimate-team";
+
+        public static string PurchasedItems = "https://utas.s2.fut.ea.com/ut/game/fifa13/purchased/items";
     }
 }
