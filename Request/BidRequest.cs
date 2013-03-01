@@ -14,7 +14,7 @@ namespace UltimateTeam.Toolkit.Request
             var uri = new Uri(uriString);
             var content = new StringContent(string.Format("{{\"bid\":{0}}}", bidAmount), Encoding.UTF8, "application/json");
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, uri) { Content = content };
-            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessonId);
+            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessionId);
             requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", "PUT");
 
             var response = await Client.SendAsync(requestMessage);

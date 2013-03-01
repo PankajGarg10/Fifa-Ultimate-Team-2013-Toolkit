@@ -20,7 +20,7 @@ namespace UltimateTeam.Toolkit.Request
             {
                 Content = new StringContent(" ")
             };
-            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessonId);
+            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessionId);
             requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", "GET");
 
             var response = await Client.SendAsync(requestMessage);

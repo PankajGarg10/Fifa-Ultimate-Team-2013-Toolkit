@@ -13,7 +13,7 @@ namespace UltimateTeam.Toolkit.Request
             var uriString = string.Format(Resources.TradeStatus, string.Join("%2C", tradeIds));
             var uri = new Uri(uriString);
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, uri) { Content = new StringContent(" ") };
-            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessonId);
+            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessionId);
             requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", "GET");
             
             var response = await Client.SendAsync(requestMessage);

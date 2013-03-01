@@ -9,7 +9,7 @@ namespace UltimateTeam.Toolkit.Request
     {
         private IJsonDeserializer _jsonDeserializer;
         private static readonly CookieContainer CookieContainer = new CookieContainer();
-        protected static string SessonId;
+        protected static string SessionId;
         protected readonly HttpClient Client;
 
         public IJsonDeserializer JsonDeserializer

@@ -72,7 +72,7 @@ namespace UltimateTeam.Toolkit.Request
             response.EnsureSuccessStatusCode();
 
             var authResponse = JsonDeserializer.Deserialize<AuthenticationResponse>(await response.Content.ReadAsStreamAsync());
-            SessonId = authResponse.SessionId;
+            SessionId = authResponse.SessionId;
 
             return authResponse;
         }
