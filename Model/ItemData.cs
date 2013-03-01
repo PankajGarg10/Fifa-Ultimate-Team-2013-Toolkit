@@ -9,7 +9,7 @@ namespace UltimateTeam.Toolkit.Model
         [DataMember(Name = "attributeList")]
         public List<Attribute> AttributeList { get; set; }
 
-        [DataMember(Name = "cardSubTypeId")]
+        [DataMember(Name = "cardsubtypeid")]
         public uint CardSubTypeId { get; set; }
 
         [DataMember(Name = "contract")]
@@ -39,7 +39,7 @@ namespace UltimateTeam.Toolkit.Model
         [DataMember(Name = "lastSalePrice")]
         public uint LastSalePrice { get; set; }
 
-        [DataMember(Name = "lifeTimeStats")]
+        [DataMember(Name = "lifetimeStats")]
         public List<Attribute> LifeTimeStats { get; set; }
 
         [DataMember(Name = "morale")]
@@ -51,7 +51,7 @@ namespace UltimateTeam.Toolkit.Model
         [DataMember(Name = "preferredPosition")]
         public string PreferredPosition { get; set; }
 
-        [DataMember(Name = "rareFlag")]
+        [DataMember(Name = "rareflag")]
         public uint RareFlag { get; set; }
 
         [DataMember(Name = "rating")]
@@ -66,7 +66,7 @@ namespace UltimateTeam.Toolkit.Model
         [DataMember(Name = "suspension")]
         public uint Suspension { get; set; }
 
-        [DataMember(Name = "teamId")]
+        [DataMember(Name = "teamid")]
         public uint TeamId { get; set; }
 
         [DataMember(Name = "timestamp")]
