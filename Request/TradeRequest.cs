@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using UltimateTeam.Toolkit.Model;
 
 namespace UltimateTeam.Toolkit.Request
@@ -10,18 +8,11 @@ namespace UltimateTeam.Toolkit.Request
     {
         public async Task<AuctionResponse> GetTradeStatuses(IEnumerable<long> tradeIds)
         {
-            var uriString = string.Format(Resources.TradeStatus, string.Join("%2C", tradeIds));
-            var uri = new Uri(uriString);
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, uri) { Content = new StringContent(" ") };
-            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessionId);
-            requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", "GET");
-            
-            var response = await Client.SendAsync(requestMessage);
+            var response = await Client.SendAsync(
+                CreateRequestMessage(" ", string.Format(Resources.TradeStatus, string.Join("%2C", tradeIds)), "GET"));
             response.EnsureSuccessStatusCode();
 
-            var auctionResponse = JsonDeserializer.Deserialize<AuctionResponse>(await response.Content.ReadAsStreamAsync());
-
-            return auctionResponse;
+            return await Deserialize<AuctionResponse>(response);
         }
     }
 }

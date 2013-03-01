@@ -54,9 +54,7 @@ namespace UltimateTeam.Toolkit.Request
             var response = await Client.SendAsync(requestMessage);
             response.EnsureSuccessStatusCode();
 
-            var validateResponse = JsonDeserializer.Deserialize<ValidateResponse>(await response.Content.ReadAsStreamAsync());
-
-            return validateResponse;
+            return await Deserialize<ValidateResponse>(response);
         }
 
         private async Task<AuthenticationResponse> AuthenticationRequestAsync(LoginResponse loginResponse, Persona persona)
@@ -71,20 +69,19 @@ namespace UltimateTeam.Toolkit.Request
             var response = await Client.PostAsync(authUrl, new StringContent(authJson, Encoding.UTF8, "application/json"));
             response.EnsureSuccessStatusCode();
 
-            var authResponse = JsonDeserializer.Deserialize<AuthenticationResponse>(await response.Content.ReadAsStreamAsync());
-            SessionId = authResponse.SessionId;
+            var authenticationResponse = await Deserialize<AuthenticationResponse>(response);
+            SessionId = authenticationResponse.SessionId;
 
-            return authResponse;
+            return authenticationResponse;
         }
 
         private async Task<Persona> AccountInfoRequestAsync()
         {
             var accountUrl = new Uri(string.Format(Resources.AccountInfo, DateTime.UtcNow.ToUnixTimestamp()));
-            
             var response = await Client.GetAsync(accountUrl);
             response.EnsureSuccessStatusCode();
 
-            var accounts = JsonDeserializer.Deserialize<UserAccounts>(await response.Content.ReadAsStreamAsync());
+            var accounts = await Deserialize<UserAccounts>(response);
             var persona = accounts.UserAccountInfo.Personas.First();
 
             return persona;
@@ -93,13 +90,11 @@ namespace UltimateTeam.Toolkit.Request
         //private async Task<Shards> ShardsRequestAsync()
         //{
         //    var shardsUrl = new Uri(string.Format(Resources.Shards, DateTime.UtcNow.ToUnixTimestamp()));
-       
+
         //    var response = await Client.GetAsync(shardsUrl);
         //    response.EnsureSuccessStatusCode();
 
-        //    var shards = JsonDeserializer.Deserialize<Shards>(await response.Content.ReadAsStreamAsync());
-
-        //    return shards;
+        //    return await Deserialize<Shards>(response);
         //}
 
         private async Task<LoginResponse> LoginRequestAsync(string username, string password)

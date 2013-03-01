@@ -10,12 +10,9 @@ namespace UltimateTeam.Toolkit.Request
         public async Task<Item> GetItemAsync(long resourceId)
         {
             var baseId = resourceId.CalculateBaseId();
-            var uriString = string.Format(Resources.Item, baseId);
-            var uri = new Uri(uriString);
-
-            var stream = await Client.GetStreamAsync(uri);
-            
-            var itemWrapper = JsonDeserializer.Deserialize<ItemWrapper>(stream);
+            var uri = new Uri(string.Format(Resources.Item, baseId));
+            var response = await Client.GetAsync(uri);
+            var itemWrapper = await Deserialize<ItemWrapper>(response);
 
             return itemWrapper.Item;
         }

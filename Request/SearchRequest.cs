@@ -15,28 +15,18 @@ namespace UltimateTeam.Toolkit.Request
             if (parameters == null) throw new ArgumentNullException("parameters");
             if (parameters.Page < 1) throw new ArgumentException("Page must be > 0");
 
-            var searchUri = BuildUri(parameters);
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, searchUri)
-            {
-                Content = new StringContent(" ")
-            };
-            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessionId);
-            requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", "GET");
-
-            var response = await Client.SendAsync(requestMessage);
+            var response = await Client.SendAsync(CreateRequestMessage(" ", BuildUriString(parameters), "GET"));
             response.EnsureSuccessStatusCode();
 
-            var auctionResponse = JsonDeserializer.Deserialize<AuctionResponse>(await response.Content.ReadAsStreamAsync());
-
-            return auctionResponse;
+            return await Deserialize<AuctionResponse>(response);
         }
 
-        private static Uri BuildUri(SearchParameters parameters)
+        private static string BuildUriString(SearchParameters parameters)
         {
             var uriString = string.Format(Resources.Search, (parameters.Page - 1) * PageSize, PageSize + 1);
             parameters.BuildUriString(ref uriString);
 
-            return new Uri(uriString);
+            return uriString;
         }
     }
 }
