@@ -43,7 +43,7 @@ namespace UltimateTeam.Toolkit.Request
             return requestMessage;
         }
 
-        protected async internal Task<T> Deserialize<T>(HttpResponseMessage responseMessage)
+        protected internal async Task<T> Deserialize<T>(HttpResponseMessage responseMessage)
         {
             return JsonDeserializer.Deserialize<T>(await responseMessage.Content.ReadAsStreamAsync());
         }

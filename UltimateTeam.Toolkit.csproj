@@ -49,6 +49,8 @@
     <Compile Include="Model\ItemWrapper.cs" />
     <Compile Include="Model\PurchasedItemsResponse.cs" />
     <Compile Include="Model\RareType.cs" />
+    <Compile Include="Model\TradePileItemData.cs" />
+    <Compile Include="Model\TradePileResponse.cs" />
     <Compile Include="Model\UnopenedPacks.cs" />
     <Compile Include="Parameter\Formation.cs" />
     <Compile Include="Parameter\PlayerSearchParameters.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="Request\PlayerImageRequest.cs" />
     <Compile Include="Request\PurchasedItemsRequest.cs" />
     <Compile Include="Request\Resources.cs" />
+    <Compile Include="Request\TradePileRequest.cs" />
     <Compile Include="Request\TradeRequest.cs" />
     <Compile Include="Service\IJsonDeserializer.cs" />
     <Compile Include="Extension\DateTimeExtensions.cs" />

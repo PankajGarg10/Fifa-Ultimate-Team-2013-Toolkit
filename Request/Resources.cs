@@ -25,5 +25,7 @@
         public static string PurchasedItems = "https://utas.s2.fut.ea.com/ut/game/fifa13/purchased/items";
 
         public const string Credits = "https://utas.s2.fut.ea.com/ut/game/fifa13/user/credits";
+
+        public const string TradePile = "https://utas.s2.fut.ea.com/ut/game/fifa13/item";
     }
 }
