@@ -1,16 +1,16 @@
 ## Sample usage
 
-[Login](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#login)
-[Player search](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-search)
-[Trade status](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#trade-status)
-[Place bids](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#place-bids)
-[Player image](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-image)
-[Item data](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#item-data)
-[Purchased items](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#purchased-items)
-[Credits](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#credits)
-[Send to trade pile](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#send-to-trade-pile)
-[Available parameter values](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#available-parameter-values)
-[Extension methods](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#extension-methods)
+[Login](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#login)  
+[Player search](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-search)  
+[Trade status](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#trade-status)  
+[Place bids](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#place-bids)  
+[Player image](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-image)  
+[Item data](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#item-data)  
+[Purchased items](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#purchased-items)  
+[Credits](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#credits)  
+[Send to trade pile](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#send-to-trade-pile)  
+[Available parameter values](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#available-parameter-values)  
+[Extension methods](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#extension-methods)  
 
 ### Login
 
