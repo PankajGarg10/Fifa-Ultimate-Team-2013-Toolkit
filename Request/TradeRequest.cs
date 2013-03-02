@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
+using UltimateTeam.Toolkit.Constant;
 using UltimateTeam.Toolkit.Model;
 
 namespace UltimateTeam.Toolkit.Request
@@ -9,7 +10,7 @@ namespace UltimateTeam.Toolkit.Request
         public async Task<AuctionResponse> GetTradeStatuses(IEnumerable<long> tradeIds)
         {
             var response = await Client.SendAsync(
-                CreateRequestMessage(" ", string.Format(Resources.TradeStatus, string.Join("%2C", tradeIds)), "GET"));
+                CreateRequestMessage(" ", string.Format(Resources.TradeStatus, string.Join("%2C", tradeIds)), HttpMethod.Get));
             response.EnsureSuccessStatusCode();
 
             return await Deserialize<AuctionResponse>(response);

@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constant\HttpMethod.cs" />
+    <Compile Include="Constant\NonStandardHttpHeaders.cs" />
+    <Compile Include="Constant\Resources.cs" />
     <Compile Include="Extension\AuctionInfoExtensions.cs" />
     <Compile Include="Model\CardType.cs" />
     <Compile Include="Model\CreditsResponse.cs" />
@@ -66,7 +69,6 @@
     <Compile Include="Request\ItemRequest.cs" />
     <Compile Include="Request\PlayerImageRequest.cs" />
     <Compile Include="Request\PurchasedItemsRequest.cs" />
-    <Compile Include="Request\Resources.cs" />
     <Compile Include="Request\TradePileRequest.cs" />
     <Compile Include="Request\TradeRequest.cs" />
     <Compile Include="Service\IJsonDeserializer.cs" />

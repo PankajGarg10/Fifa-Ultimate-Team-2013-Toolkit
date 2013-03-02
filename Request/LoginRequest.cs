@@ -5,9 +5,11 @@ using System.Net.Http;
 using System.Xml.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using UltimateTeam.Toolkit.Constant;
 using UltimateTeam.Toolkit.Extension;
 using UltimateTeam.Toolkit.Model;
 using UltimateTeam.Toolkit.Service;
+using HttpMethod = System.Net.Http.HttpMethod;
 
 namespace UltimateTeam.Toolkit.Request
 {
@@ -44,8 +46,8 @@ namespace UltimateTeam.Toolkit.Request
         {
             var questionUrl = new Uri(Resources.Validate);
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, questionUrl);
-            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", authResponse.SessionId);
-            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Embed-Error", "true");
+            requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.SessionId, authResponse.SessionId);
+            requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.EmbedError, "true");
             requestMessage.Content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 { "answer", Hasher.Hash(securityAnswer) }

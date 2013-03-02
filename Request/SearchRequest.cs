@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
+using UltimateTeam.Toolkit.Constant;
 using UltimateTeam.Toolkit.Model;
 using UltimateTeam.Toolkit.Parameter;
 
@@ -15,7 +15,7 @@ namespace UltimateTeam.Toolkit.Request
             if (parameters == null) throw new ArgumentNullException("parameters");
             if (parameters.Page < 1) throw new ArgumentException("Page must be > 0");
 
-            var response = await Client.SendAsync(CreateRequestMessage(" ", BuildUriString(parameters), "GET"));
+            var response = await Client.SendAsync(CreateRequestMessage(" ", BuildUriString(parameters), HttpMethod.Get));
             response.EnsureSuccessStatusCode();
 
             return await Deserialize<AuctionResponse>(response);

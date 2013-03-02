@@ -3,7 +3,9 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using UltimateTeam.Toolkit.Constant;
 using UltimateTeam.Toolkit.Service;
+using HttpMethod = System.Net.Http.HttpMethod;
 
 namespace UltimateTeam.Toolkit.Request
 {
@@ -37,8 +39,9 @@ namespace UltimateTeam.Toolkit.Request
         {
             var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(uriString)) { Content = stringContent };
-            requestMessage.Headers.TryAddWithoutValidation("X-Ut-Sid", SessionId);
-            requestMessage.Headers.TryAddWithoutValidation("x-http-method-override", httpMethodOverride);
+            requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.SessionId, SessionId);
+            requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.MethodOverride, httpMethodOverride);
+            requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.EmbedError, "true");
 
             return requestMessage;
         }
