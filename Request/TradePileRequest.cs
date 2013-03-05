@@ -6,7 +6,7 @@ namespace UltimateTeam.Toolkit.Request
 {
     public class TradePileRequest : RequestBase
     {
-        public async Task<TradePileResponse> SendToTradePile(ItemData itemData)
+        public async Task<TradePileResponse> SendToTradePileAsync(ItemData itemData)
         {
             var response = await Client.SendAsync(CreateRequestMessage(
                 string.Format("{{\"itemData\":[{{\"id\":\"{0}\",\"pile\":\"trade\"}}]}}", itemData.Id),

@@ -6,7 +6,7 @@ namespace UltimateTeam.Toolkit.Request
 {
     public class PurchasedItemsRequest : RequestBase
     {
-        public async Task<PurchasedItemsResponse> GetPurchasedItems()
+        public async Task<PurchasedItemsResponse> GetPurchasedItemsAsync()
         {
             var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.PurchasedItems, HttpMethod.Get));
             response.EnsureSuccessStatusCode();

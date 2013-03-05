@@ -101,7 +101,7 @@ Items that have been bought or received in gift packs.
 
 ```csharp
 var purchasedItemsRequest = new PurchasedItemsRequest();
-var purchasedItemsResponse = await purchasedItemsRequest.GetPurchasedItems();
+var purchasedItemsResponse = await purchasedItemsRequest.GetPurchasedItemsAsync();
 foreach (var itemData in purchasedItemsResponse.ItemData)
 {
     
@@ -114,7 +114,7 @@ Amount of coins and unopened packs.
 
 ```csharp
 var creditsRequest = new CreditsRequest();
-var creditsResponse = await creditsRequest.GetCredits();
+var creditsResponse = await creditsRequest.GetCreditsAsync();
 ```
 
 ### Send to trade pile
@@ -123,7 +123,7 @@ Sends an item to the trade pile.
 
 ```csharp
 var tradePileRequest = new TradePileRequest();
-var tradePileResponse = await tradePileRequest.SendToTradePile(itemData);
+var tradePileResponse = await tradePileRequest.SendToTradePileAsync(itemData);
 ```
 
 ### Available parameter values

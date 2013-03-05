@@ -6,7 +6,7 @@ namespace UltimateTeam.Toolkit.Request
 {
     public class CreditsRequest : RequestBase
     {
-        public async Task<CreditsResponse> GetCredits()
+        public async Task<CreditsResponse> GetCreditsAsync()
         {
             var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.Credits, HttpMethod.Get));
             response.EnsureSuccessStatusCode();
