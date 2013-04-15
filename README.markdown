@@ -9,6 +9,7 @@
 [Purchased items](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#purchased-items)  
 [Credits](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#credits)  
 [Send to trade pile](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#send-to-trade-pile)  
+[List auction](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#list-auction)
 [Available parameter values](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#available-parameter-values)  
 [Extension methods](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#extension-methods)  
 
@@ -56,7 +57,7 @@ var auctionResponse = await tradeRequest.GetTradeStatuses(
 
 foreach (var auctionInfo in auctionResponse.AuctionInfo)
 {
-	// Handle the update auction data
+	// Handle the updated auction data
 }
 ```
 
@@ -124,6 +125,20 @@ Sends an item to the trade pile.
 ```csharp
 var tradePileRequest = new TradePileRequest();
 var tradePileResponse = await tradePileRequest.SendToTradePileAsync(itemData);
+```
+
+### List auction
+
+Lists an auction, from a trade pile item.
+
+```csharp
+var listAuctionRequest = new ListAuctionRequest();
+
+// No "buy now", Duration = one hour and starting bid = 150
+var listAuctionResponse = await listAuctionRequest.ListAuctionAsync(itemData.Id);
+
+// Buy now = 1000, Duration = three hours and starting bid = 200
+var listAuctionResponse = await listAuctionRequest.ListAuctionAsync(itemData.Id, 1000, AuctionDuration.ThreeHours, 200);
 ```
 
 ### Available parameter values
