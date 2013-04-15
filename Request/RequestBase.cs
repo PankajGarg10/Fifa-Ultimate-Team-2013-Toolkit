@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using UltimateTeam.Toolkit.Constant;
@@ -28,11 +29,16 @@ namespace UltimateTeam.Toolkit.Request
 
         protected RequestBase()
         {
-            var handler = new HttpClientHandler { CookieContainer = CookieContainer };
+            var handler = new HttpClientHandler
+            {
+                CookieContainer = CookieContainer,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
             Client = new HttpClient(handler);
             Client.DefaultRequestHeaders.ExpectContinue = false;
             Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17");
             Client.DefaultRequestHeaders.Referrer = new Uri(Resources.Home);
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         protected internal HttpRequestMessage CreateRequestMessage(string content, string uriString, string httpMethodOverride)

@@ -12,6 +12,6 @@ namespace UltimateTeam.Toolkit.Model
         public string Pile { get; set; }
 
         [DataMember(Name = "success")]
-        public string Success { get; set; }
+        public bool Success { get; set; }
     }
 }
