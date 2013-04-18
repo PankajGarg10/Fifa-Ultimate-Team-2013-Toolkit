@@ -171,7 +171,7 @@ namespace UltimateTeam.Toolkit.Service
                 blocks[i >> 2] |= input[i] << ((i % 4) * 8);
             }
 
-            blocks[input.Length >> 2] |= 0x80 << (((numberOfBlocks - 1) % 4) * 8);
+            blocks[input.Length >> 2] |= 0x80 << ((input.Length % 4) * 8);
             blocks[numberOfBlocks * 16 - 2] = input.Length * 8;
 
             return blocks;
