@@ -8,7 +8,7 @@ namespace UltimateTeam.Toolkit.Request
     {
         public async Task<CreditsResponse> GetCreditsAsync()
         {
-            var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.Credits, HttpMethod.Get));
+            var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.FutHostName + Resources.Credits, HttpMethod.Get));
             response.EnsureSuccessStatusCode();
 
             return await Deserialize<CreditsResponse>(response);

@@ -10,7 +10,7 @@ namespace UltimateTeam.Toolkit.Request
         {
             var response = await Client.SendAsync(CreateRequestMessage(
                 string.Format("{{\"itemData\":[{{\"id\":\"{0}\",\"pile\":\"trade\"}}]}}", itemData.Id),
-                Resources.TradePile,
+                Resources.FutHostName + Resources.TradePile,
                 HttpMethod.Put));
             response.EnsureSuccessStatusCode();
 

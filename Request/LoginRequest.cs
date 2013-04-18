@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Net.Http;
 using System.Xml.Linq;
@@ -34,17 +35,14 @@ namespace UltimateTeam.Toolkit.Request
             if (string.IsNullOrEmpty(securityAnswer)) throw new ArgumentException("securityAnswer");
 
             var loginResponse = await LoginRequestAsync(username, password);
-            //var shards = await ShardsRequestAsync();
-            // TODO: loop through shards until we get a user
             var persona = await AccountInfoRequestAsync();
             var authResponse = await AuthenticationRequestAsync(loginResponse, persona);
-            /*var validateResponse = */
             await ValidateRequestAsync(authResponse, securityAnswer);
         }
 
         private async Task<ValidateResponse> ValidateRequestAsync(AuthenticationResponse authResponse, string securityAnswer)
         {
-            var questionUrl = new Uri(Resources.Validate);
+            var questionUrl = new Uri(string.Format(Resources.Validate, Resources.Platform));
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, questionUrl);
             requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.SessionId, authResponse.SessionId);
             requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.EmbedError, "true");
@@ -61,43 +59,48 @@ namespace UltimateTeam.Toolkit.Request
 
         private async Task<AuthenticationResponse> AuthenticationRequestAsync(LoginResponse loginResponse, Persona persona)
         {
-            var authUrl = new Uri(Resources.Auth);
             var authJson = string.Format(@"{{ ""isReadOnly"": false, ""sku"": ""393A0001"", ""clientVersion"": 3, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""idm"", ""priorityLevel"":4, ""identification"": {{ ""EASW-Token"": """" }} }}",
                     loginResponse.Player.NucleusId,
                     persona.PersonaId,
                     persona.PersonaName,
                     persona.UserClubList.OrderByDescending(club => club.LastAccessTime).First().Platform
                     );
+            var authUrl = new Uri(string.Format(Resources.Auth, Resources.Platform));
             var response = await Client.PostAsync(authUrl, new StringContent(authJson, Encoding.UTF8, "application/json"));
             response.EnsureSuccessStatusCode();
 
             var authenticationResponse = await Deserialize<AuthenticationResponse>(response);
             SessionId = authenticationResponse.SessionId;
+            Resources.FutHostName = string.Format("{0}://{1}", authenticationResponse.Protocol, authenticationResponse.IpPort);
 
             return authenticationResponse;
         }
 
         private async Task<Persona> AccountInfoRequestAsync()
         {
-            var accountUrl = new Uri(string.Format(Resources.AccountInfo, DateTime.UtcNow.ToUnixTimestamp()));
+            try
+            {
+                return await DownloadPersonaAsync(Resources.AccountInfoXbox);
+            }
+            catch (NullReferenceException)
+            {
+                // Catch it in case we can't find any user accounts, in that case we'll try the next URL.
+                Resources.Platform = "ps3";
+            }
+
+            return await DownloadPersonaAsync(Resources.AccountInfoPc);
+        }
+
+        private async Task<Persona> DownloadPersonaAsync(string url)
+        {
+            var accountUrl = new Uri(string.Format(url, DateTime.UtcNow.ToUnixTimestamp()));
             var response = await Client.GetAsync(accountUrl);
             response.EnsureSuccessStatusCode();
 
             var accounts = await Deserialize<UserAccounts>(response);
-            var persona = accounts.UserAccountInfo.Personas.First();
 
-            return persona;
+            return accounts.UserAccountInfo.Personas.First();
         }
-
-        //private async Task<Shards> ShardsRequestAsync()
-        //{
-        //    var shardsUrl = new Uri(string.Format(Resources.Shards, DateTime.UtcNow.ToUnixTimestamp()));
-
-        //    var response = await Client.GetAsync(shardsUrl);
-        //    response.EnsureSuccessStatusCode();
-
-        //    return await Deserialize<Shards>(response);
-        //}
 
         private async Task<LoginResponse> LoginRequestAsync(string username, string password)
         {

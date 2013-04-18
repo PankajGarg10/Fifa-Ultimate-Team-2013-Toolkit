@@ -92,8 +92,6 @@
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\PreferredPersona.cs" />
     <Compile Include="Parameter\SearchParameters.cs" />
-    <Compile Include="Model\Shard.cs" />
-    <Compile Include="Model\Shards.cs" />
     <Compile Include="Model\UserAccountInfo.cs" />
     <Compile Include="Model\UserAccounts.cs" />
     <Compile Include="Model\UserClub.cs" />

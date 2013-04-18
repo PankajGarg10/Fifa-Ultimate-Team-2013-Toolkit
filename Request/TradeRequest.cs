@@ -10,7 +10,7 @@ namespace UltimateTeam.Toolkit.Request
         public async Task<AuctionResponse> GetTradeStatuses(IEnumerable<long> tradeIds)
         {
             var response = await Client.SendAsync(
-                CreateRequestMessage(" ", string.Format(Resources.TradeStatus, string.Join("%2C", tradeIds)), HttpMethod.Get));
+                CreateRequestMessage(" ", string.Format(Resources.FutHostName + Resources.TradeStatus, string.Join("%2C", tradeIds)), HttpMethod.Get));
             response.EnsureSuccessStatusCode();
 
             return await Deserialize<AuctionResponse>(response);

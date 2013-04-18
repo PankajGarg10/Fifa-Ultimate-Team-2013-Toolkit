@@ -23,7 +23,7 @@ namespace UltimateTeam.Toolkit.Request
 
         private static string BuildUriString(SearchParameters parameters)
         {
-            var uriString = string.Format(Resources.Search, (parameters.Page - 1) * PageSize, PageSize + 1);
+            var uriString = string.Format(Resources.FutHostName + Resources.Search, (parameters.Page - 1) * PageSize, PageSize + 1);
             parameters.BuildUriString(ref uriString);
 
             return uriString;

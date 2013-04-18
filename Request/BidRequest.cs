@@ -9,7 +9,7 @@ namespace UltimateTeam.Toolkit.Request
         public async Task<AuctionResponse> PlaceBid(AuctionInfo auctionInfo, uint bidAmount)
         {
             var content = string.Format("{{\"bid\":{0}}}", bidAmount);
-            var uriString = string.Format(Resources.Bid, auctionInfo.TradeId);
+            var uriString = string.Format(Resources.FutHostName + Resources.Bid, auctionInfo.TradeId);
             var response = await Client.SendAsync(CreateRequestMessage(content, uriString, HttpMethod.Put));
             response.EnsureSuccessStatusCode();
 

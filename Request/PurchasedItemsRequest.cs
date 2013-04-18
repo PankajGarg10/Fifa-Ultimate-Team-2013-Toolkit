@@ -8,7 +8,7 @@ namespace UltimateTeam.Toolkit.Request
     {
         public async Task<PurchasedItemsResponse> GetPurchasedItemsAsync()
         {
-            var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.PurchasedItems, HttpMethod.Get));
+            var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.FutHostName + Resources.PurchasedItems, HttpMethod.Get));
             response.EnsureSuccessStatusCode();
 
             return await Deserialize<PurchasedItemsResponse>(response);

@@ -24,7 +24,7 @@ namespace UltimateTeam.Toolkit.Request
 
             var content = string.Format("{{\"itemData\":{{\"id\":{0}}},\"buyNowPrice\":{1},\"duration\":{2},\"startingBid\":{3}}}",
                 id, buyNowPrice, (uint)duration, startingBid);
-            var response = await Client.SendAsync(CreateRequestMessage(content, Resources.AuctionHouse, HttpMethod.Post));
+            var response = await Client.SendAsync(CreateRequestMessage(content, Resources.FutHostName + Resources.AuctionHouse, HttpMethod.Post));
             response.EnsureSuccessStatusCode();
 
             return await Deserialize<ListAuctionResponse>(response);
