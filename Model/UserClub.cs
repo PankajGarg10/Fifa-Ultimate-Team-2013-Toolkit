@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 namespace UltimateTeam.Toolkit.Model
 {
     [DataContract]
-    internal class UserClub
+    public class UserClub
     {
         [DataMember(Name = "clubAbbr")]
         public string ClubAbbr { get; set; }

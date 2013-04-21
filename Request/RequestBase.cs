@@ -36,7 +36,14 @@ namespace UltimateTeam.Toolkit.Request
             };
             Client = new HttpClient(handler);
             Client.DefaultRequestHeaders.ExpectContinue = false;
-            Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17");
+            // Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17");
+			// this User-Agent header block is so verbose because the compact form breaks on mono
+			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Mozilla/5.0"));
+			Client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(Windows NT 6.2; WOW64)"));
+			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("AppleWebKit/537.17"));
+			Client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(KHTML, like Gecko)"));
+			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Chrome/24.0.1312.57"));
+			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Safari/537.17"));
             Client.DefaultRequestHeaders.Referrer = new Uri(Resources.Home);
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -51,6 +58,13 @@ namespace UltimateTeam.Toolkit.Request
 
             return requestMessage;
         }
+
+		protected internal async Task EnsureSuccessfulResponse(HttpResponseMessage response) {
+			if (!response.IsSuccessStatusCode) {
+				var error = await Deserialize<UltimateTeam.Toolkit.Model.ApiError>(response);
+				throw new HttpRequestException(string.Format("{0} ({1})", error.Reason, error.Code));
+			}
+		}
 
         protected internal async Task<T> Deserialize<T>(HttpResponseMessage responseMessage)
         {

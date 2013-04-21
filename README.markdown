@@ -20,6 +20,13 @@ var loginRequest = new LoginRequest();
 await loginRequest.LoginAsync("e-mail", "password", "secret answer");
 ```
 
+or you can specify a platform from `pc`, `360` or `ps3`:
+
+```csharp
+var loginRequest = new LoginRequest();
+await loginRequest.LoginAsync("e-mail", "password", "secret answer", "pc");
+```
+
 ### Player search
 
 All the search parameters are optional. If none are specified, you will get the 1st page of results with no filters applied.
