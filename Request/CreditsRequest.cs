@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using UltimateTeam.Toolkit.Constant;
 using UltimateTeam.Toolkit.Model;
-using System.Net.Http;
 
 namespace UltimateTeam.Toolkit.Request
 {
@@ -9,7 +8,7 @@ namespace UltimateTeam.Toolkit.Request
     {
         public async Task<CreditsResponse> GetCreditsAsync()
         {
-            var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.FutHostName + Resources.Credits, UltimateTeam.Toolkit.Constant.HttpMethod.Get));
+            var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.FutHostName + Resources.Credits, HttpMethod.Get));
 
 			await EnsureSuccessfulResponse(response);
 

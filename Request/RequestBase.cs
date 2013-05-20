@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using UltimateTeam.Toolkit.Constant;
+using UltimateTeam.Toolkit.Model;
 using UltimateTeam.Toolkit.Service;
 using HttpMethod = System.Net.Http.HttpMethod;
 
@@ -36,7 +37,7 @@ namespace UltimateTeam.Toolkit.Request
             };
             Client = new HttpClient(handler);
             Client.DefaultRequestHeaders.ExpectContinue = false;
-            // Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17");
+            
 			// this User-Agent header block is so verbose because the compact form breaks on mono
 			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Mozilla/5.0"));
 			Client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(Windows NT 6.2; WOW64)"));
@@ -60,8 +61,9 @@ namespace UltimateTeam.Toolkit.Request
         }
 
 		protected internal async Task EnsureSuccessfulResponse(HttpResponseMessage response) {
-			if (!response.IsSuccessStatusCode) {
-				var error = await Deserialize<UltimateTeam.Toolkit.Model.ApiError>(response);
+			if (!response.IsSuccessStatusCode) 
+            {
+				var error = await Deserialize<ApiError>(response);
 				throw new HttpRequestException(string.Format("{0} ({1})", error.Reason, error.Code));
 			}
 		}
