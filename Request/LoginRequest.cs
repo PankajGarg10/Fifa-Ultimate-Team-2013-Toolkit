@@ -28,16 +28,34 @@ namespace UltimateTeam.Toolkit.Request
             }
         }
 
-        public async Task LoginAsync(string username, string password, string securityAnswer)
+        public async Task<Persona> LoginAsync(string username, string password, string securityAnswer, string platform)
         {
             if (string.IsNullOrEmpty(username)) throw new ArgumentException("username");
             if (string.IsNullOrEmpty(password)) throw new ArgumentException("password");
             if (string.IsNullOrEmpty(securityAnswer)) throw new ArgumentException("securityAnswer");
 
             var loginResponse = await LoginRequestAsync(username, password);
+            DeterminePlatform(platform, loginResponse.Player.PreferredPersona.Platform);
             var persona = await AccountInfoRequestAsync();
             var authResponse = await AuthenticationRequestAsync(loginResponse, persona);
             await ValidateRequestAsync(authResponse, securityAnswer);
+			return persona;
+        }
+
+        public async Task<Persona> LoginAsync(string username, string password, string securityAnswer)
+        {
+            return await LoginAsync(username, password, securityAnswer, null);
+        }
+
+        private void DeterminePlatform(string requestedPlatform, string defaultPlatform)
+        {
+            if (string.IsNullOrEmpty(requestedPlatform))
+            {
+                // TODO: parsing code, cem_ea_id = pc, others are literal 360 = 360, ps3 = ps3
+                Resources.Platform = defaultPlatform.Equals("cem_ea_id") ? "pc" : defaultPlatform;
+				return;
+            }
+            Resources.Platform = requestedPlatform;
         }
 
         private async Task<ValidateResponse> ValidateRequestAsync(AuthenticationResponse authResponse, string securityAnswer)
@@ -78,22 +96,12 @@ namespace UltimateTeam.Toolkit.Request
 
         private async Task<Persona> AccountInfoRequestAsync()
         {
-            try
-            {
-                return await DownloadPersonaAsync(Resources.AccountInfoXbox);
-            }
-            catch (NullReferenceException)
-            {
-                // Catch it in case we can't find any user accounts, in that case we'll try the next URL.
-                Resources.Platform = "ps3";
-            }
-
-            return await DownloadPersonaAsync(Resources.AccountInfoPc);
+            return await DownloadPersonaAsync(string.Format(Resources.AccountInfo, Resources.Platform, DateTime.UtcNow.ToUnixTimestamp()));
         }
 
         private async Task<Persona> DownloadPersonaAsync(string url)
         {
-            var accountUrl = new Uri(string.Format(url, DateTime.UtcNow.ToUnixTimestamp()));
+            var accountUrl = new Uri(url);
             var response = await Client.GetAsync(accountUrl);
             response.EnsureSuccessStatusCode();
 

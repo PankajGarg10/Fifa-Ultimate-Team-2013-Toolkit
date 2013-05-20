@@ -8,9 +8,7 @@
 
         public const string Auth = "http://www.ea.com/p/fut/a/card-{0}/l/en_GB/s/p/ut/auth";
 
-        public const string AccountInfoPc = "http://www.ea.com/p/fut/a/card-pc/l/en_GB/s/p/ut/game/fifa13/user/accountinfo?timestamp={0}";
-
-        public const string AccountInfoXbox = "http://www.ea.com/p/fut/a/card-360/l/en_GB/s/p/ut/game/fifa13/user/accountinfo?timestamp={0}";
+        public const string AccountInfo = "http://www.ea.com/p/fut/a/card-{0}/l/en_GB/s/p/ut/game/fifa13/user/accountinfo?timestamp={1}";
 
         public const string Login = "https://www.ea.com/intl/football/services/authenticate/login";
 

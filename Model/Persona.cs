@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace UltimateTeam.Toolkit.Model
 {
     [DataContract]
-    internal class Persona
+    public class Persona
     {
         [DataMember(Name = "personaId")]
         public long PersonaId { get; set; }
