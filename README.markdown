@@ -3,6 +3,7 @@
 [Login](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#login)  
 [Player search](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-search)  
 [Watch list](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#watch-list)  
+[Quick sell](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#quick-sell)  
 [Trade status](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#trade-status)  
 [Place bids](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#place-bids)  
 [Player image](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-image)  
@@ -58,12 +59,24 @@ Retrieves the current state of the watch list.
 
 ```csharp
 var watchlistRequest = new WatchlistRequest();
-var auctionResponse = await request.RequestWatchlist();
+var auctionResponse = await watchlistRequest.RequestWatchlist();
 
 foreach (var auctionInfo in auctionResponse.AuctionInfo)
 {
 	// Handle the watch list items
 }
+```
+
+### Quick sell
+
+Sells an item from watch list.
+
+```csharp
+var quicksellRequest = new QuickSellRequest();
+var credits = await quickSellRequest.QuickSell(item.ItemData.Id);
+
+// Prints the credits amount
+Console.WriteLine(credits.Credits);
 ```
 
 ### Trade status

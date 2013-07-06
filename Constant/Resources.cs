@@ -33,5 +33,7 @@
         public const string TradePile = "/ut/game/fifa13/item";
 
         public const string Watchlist = "/ut/game/fifa13/watchlist";
+
+        public const string QuickSell = "/ut/game/fifa13/item/";
     }
 }
