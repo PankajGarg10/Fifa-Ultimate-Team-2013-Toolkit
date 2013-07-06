@@ -57,6 +57,7 @@
     <Compile Include="Model\TradePileItemData.cs" />
     <Compile Include="Model\TradePileResponse.cs" />
     <Compile Include="Model\UnopenedPacks.cs" />
+    <Compile Include="Model\WatchlistResponse.cs" />
     <Compile Include="Parameter\Formation.cs" />
     <Compile Include="Parameter\PlayerSearchParameters.cs" />
     <Compile Include="Model\ResourceType.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Request\PurchasedItemsRequest.cs" />
     <Compile Include="Request\TradePileRequest.cs" />
     <Compile Include="Request\TradeRequest.cs" />
+    <Compile Include="Request\WatchlistRequest.cs" />
     <Compile Include="Service\IJsonDeserializer.cs" />
     <Compile Include="Extension\DateTimeExtensions.cs" />
     <Compile Include="Extension\LongExtensions.cs" />
