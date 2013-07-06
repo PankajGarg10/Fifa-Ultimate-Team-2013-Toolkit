@@ -22,6 +22,14 @@ namespace UltimateTeam.Toolkit.Parameter
 
         public uint Team { get; set; }
 
+        public uint MinBuy { get; set; }
+
+        public uint MaxBuy { get; set; }
+
+        public uint MinBid { get; set; }
+
+        public uint MaxBid { get; set; }
+
         internal override string BuildUriString(ref string uriString)
         {
             if (League > 0)
@@ -37,6 +45,18 @@ namespace UltimateTeam.Toolkit.Parameter
 
             if (Team > 0)
                 uriString += "&team=" + Team;
+
+            if (MinBuy > 0)
+                uriString += "&minb=" + MinBuy;
+
+            if (MaxBuy > 0)
+                uriString += "&maxb=" + MaxBuy;
+
+            if (MinBid > 0)
+                uriString += "&micr=" + MinBid;
+
+            if (MaxBid > 0)
+                uriString += "&macr=" + MaxBid;
 
             SetPosition(ref uriString);
 
