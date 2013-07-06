@@ -2,6 +2,7 @@
 
 [Login](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#login)  
 [Player search](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-search)  
+[Watch list](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#watch-list)  
 [Trade status](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#trade-status)  
 [Place bids](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#place-bids)  
 [Player image](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-image)  
@@ -48,6 +49,20 @@ var searchResponse = await searchRequest.SearchAsync(searchParameters);
 foreach (var auctionInfo in searchResponse.AuctionInfo)
 {
 	// Handle auction data
+}
+```
+
+### Watch list
+
+Retrieves the current state of the watch list.
+
+```csharp
+var watchlistRequest = new WatchlistRequest();
+var auctionResponse = await request.RequestWatchlist();
+
+foreach (var auctionInfo in auctionResponse.AuctionInfo)
+{
+	// Handle the watch list items
 }
 ```
 
