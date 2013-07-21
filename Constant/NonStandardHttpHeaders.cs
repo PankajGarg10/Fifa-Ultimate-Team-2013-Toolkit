@@ -7,5 +7,8 @@
         public const string MethodOverride = "X-HTTP-Method-Override";
 
         public const string EmbedError = "X-UT-Embed-Error";
+
+        public const string Token = "X-UT-PHISHING-TOKEN";
+
     }
 }

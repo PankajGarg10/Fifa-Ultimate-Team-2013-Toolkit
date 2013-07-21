@@ -4,17 +4,17 @@
     {
         public static string Platform = "360";
 
-        public const string Validate = "http://www.ea.com/p/fut/a/card-{0}/l/en_GB/s/p/ut/game/fifa13/phishing/validate";
+        public const string Validate = "http://www.easports.com/p/fut/a/card-{0}/l/en_GB/s/p/ut/game/fifa13/phishing/validate";
 
-        public const string Auth = "http://www.ea.com/p/fut/a/card-{0}/l/en_GB/s/p/ut/auth";
+        public const string Auth = "http://www.easports.com/p/fut/a/card-{0}/l/en_GB/s/p/ut/auth";
 
-        public const string AccountInfo = "http://www.ea.com/p/fut/a/card-{0}/l/en_GB/s/p/ut/game/fifa13/user/accountinfo?timestamp={1}";
+        public const string AccountInfo = "http://www.easports.com/p/fut/a/card-{0}/l/en_GB/s/p/ut/game/fifa13/user/accountinfo?timestamp={1}";
 
-        public const string Login = "https://www.ea.com/intl/football/services/authenticate/login";
+        public const string Login = "https://www.easports.com/uk/fifa/football-club/services/authenticate/login";
 
         public const string Item = "http://cdn.content.easports.com/fifa/fltOnlineAssets/2013/fut/items/web/{0}.json";
 
-        public const string Home = "http://www.ea.com/uk/football/login?redirectUrl=http://www.ea.com/uk/football/fifa-ultimate-team";
+        public const string Home = "http://www.easports.com/uk/fifa/football-club/login?redirectUrl=http://www.easports.com/uk/fifa/football-club/ultimate-team";
 
         public static string FutHostName;
 

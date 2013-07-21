@@ -70,8 +70,10 @@ namespace UltimateTeam.Toolkit.Request
 
             var response = await Client.SendAsync(requestMessage);
             response.EnsureSuccessStatusCode();
+            var validateResponse = await Deserialize<ValidateResponse>(response);
+            Token = validateResponse.Token;
 
-            return await Deserialize<ValidateResponse>(response);
+            return  validateResponse;
         }
 
         private async Task<AuthenticationResponse> AuthenticationRequestAsync(LoginResponse loginResponse, Persona persona)

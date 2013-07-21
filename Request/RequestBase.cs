@@ -16,6 +16,7 @@ namespace UltimateTeam.Toolkit.Request
         private IJsonDeserializer _jsonDeserializer;
         private static readonly CookieContainer CookieContainer = new CookieContainer();
         protected static string SessionId;
+        protected static string Token;
         protected readonly HttpClient Client;
 
         public IJsonDeserializer JsonDeserializer
@@ -37,14 +38,14 @@ namespace UltimateTeam.Toolkit.Request
             };
             Client = new HttpClient(handler);
             Client.DefaultRequestHeaders.ExpectContinue = false;
-            
-			// this User-Agent header block is so verbose because the compact form breaks on mono
-			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Mozilla/5.0"));
-			Client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(Windows NT 6.2; WOW64)"));
-			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("AppleWebKit/537.17"));
-			Client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(KHTML, like Gecko)"));
-			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Chrome/24.0.1312.57"));
-			Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Safari/537.17"));
+
+            // this User-Agent header block is so verbose because the compact form breaks on mono
+            Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Mozilla/5.0"));
+            Client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(Windows NT 6.2; WOW64)"));
+            Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("AppleWebKit/537.17"));
+            Client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("(KHTML, like Gecko)"));
+            Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Chrome/24.0.1312.57"));
+            Client.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("Safari/537.17"));
             Client.DefaultRequestHeaders.Referrer = new Uri(Resources.Home);
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -56,17 +57,22 @@ namespace UltimateTeam.Toolkit.Request
             requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.SessionId, SessionId);
             requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.MethodOverride, httpMethodOverride);
             requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.EmbedError, "true");
+            if (!string.IsNullOrEmpty(Token))
+            {
+                requestMessage.Headers.TryAddWithoutValidation(NonStandardHttpHeaders.Token, Token);
+            }
 
             return requestMessage;
         }
 
-		protected internal async Task EnsureSuccessfulResponse(HttpResponseMessage response) {
-			if (!response.IsSuccessStatusCode) 
+        protected internal async Task EnsureSuccessfulResponse(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
             {
-				var error = await Deserialize<ApiError>(response);
-				throw new HttpRequestException(string.Format("{0} ({1})", error.Reason, error.Code));
-			}
-		}
+                var error = await Deserialize<ApiError>(response);
+                throw new HttpRequestException(string.Format("{0} ({1})", error.Reason, error.Code));
+            }
+        }
 
         protected internal async Task<T> Deserialize<T>(HttpResponseMessage responseMessage)
         {

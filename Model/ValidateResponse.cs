@@ -16,5 +16,8 @@ namespace UltimateTeam.Toolkit.Model
 
         [DataMember(Name = "code")]
         public int Code { get; set; }
+
+        [DataMember(Name = "token")]
+        public string Token { get; set; }
     }
 }
