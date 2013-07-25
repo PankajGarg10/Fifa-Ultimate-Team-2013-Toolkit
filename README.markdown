@@ -9,7 +9,8 @@
 [Player image](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#player-image)  
 [Item data](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#item-data)  
 [Purchased items](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#purchased-items)  
-[Credits](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#credits)  
+[Credits](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#credits)
+[Request trade pile](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#request-trade-pile)
 [Send to trade pile](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#send-to-trade-pile)  
 [List auction](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#list-auction)  
 [Available parameter values](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#available-parameter-values)  
@@ -151,6 +152,15 @@ Amount of coins and unopened packs.
 ```csharp
 var creditsRequest = new CreditsRequest();
 var creditsResponse = await creditsRequest.GetCreditsAsync();
+```
+
+### Request trade pile
+
+Gets the items in the trade pile.
+
+```csharp
+var tradePileRequest = new TradePileRequest();
+var tradePile = await tradePileRequest.RequestTradepileAsync();
 ```
 
 ### Send to trade pile

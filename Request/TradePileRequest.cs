@@ -16,5 +16,13 @@ namespace UltimateTeam.Toolkit.Request
 
             return await Deserialize<TradePileResponse>(response);
         }
+
+        public async Task<AuctionResponse> RequestTradepileAsync()
+        {
+            var response = await Client.SendAsync(CreateRequestMessage(" ", Resources.FutHostName + Resources.TradepileList, HttpMethod.Get));
+            response.EnsureSuccessStatusCode();
+
+            return await Deserialize<AuctionResponse>(response);
+        }
     }
 }
