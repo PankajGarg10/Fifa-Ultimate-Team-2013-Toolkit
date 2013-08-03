@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace UltimateTeam.Toolkit.Service
@@ -182,8 +181,8 @@ namespace UltimateTeam.Toolkit.Service
             var result = "";
             for (var j = 0; j <= 3; j++)
             {
-                result += HexCharacters[(number >> (j * 8 + 4)) & 0x0F].ToString(CultureInfo.InvariantCulture)
-                        + HexCharacters[(number >> (j * 8)) & 0x0F].ToString(CultureInfo.InvariantCulture);
+                result += HexCharacters[(number >> (j * 8 + 4)) & 0x0F]
+                        + HexCharacters[(number >> (j * 8)) & 0x0F].ToString();
             }
 
             return result;

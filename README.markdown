@@ -1,3 +1,10 @@
+##Supports
+
+- .NET framework 4.0.3 and higher
+- Silverlight 4 and higher
+- Windows Phone 7.5 and higher
+- Windows Store apps
+
 ## Sample usage
 
 [Login](https://github.com/trydis/Fifa-Ultimate-Team-2013-Toolkit#login)  
